@@ -1,0 +1,32 @@
+<h3> <%= @employee.name %></h3>
+
+<%=  "Department: #{@employee.department.name}" %>
+<%=  "Level: #{@employee.level}" %>
+
+<div id="OldestTicket">
+  <h4><%= "Oldest Ticket: #{@employee.oldest_ticket}" %> </h4>
+</div>
+
+<div id="AllTickets">
+  <h4> All Tickets - Oldest to Newest </h4>
+  <% @employee.tickets_by_age.each do |ticket| %>
+    <%= ticket %> <br>
+  <% end %>
+</div>
+
+<br> 
+
+<%= form_with url: "/employees/#{@employee.id}", method: :patch, local: :true do |f| %>
+  <%= f.text_field :add_ticket %>
+  <%= f.submit "Add ticket" %>
+<% end %>
+
+<br>
+<br>
+
+<div id="WorkingWith">
+  <%= "Working with:" %>
+  <% @employee.shared_ticket_employees.each do |employee| %>
+    <%= employee unless employee == @employee.name %>
+  <% end %>
+</div>
